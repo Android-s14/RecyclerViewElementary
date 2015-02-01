@@ -20,7 +20,7 @@ You can find an example of usage in the `sample` module.
 
 ## Coming soon
 - [x] basic construction of purely textual RecyclerViews
-- [ ] setting custom LayoutManager
-- [ ] setting custom layout from layout resources
+- [ ] setting a custom LayoutManager
+- [ ] setting a custom layout from layout resources
 - [ ] support for images in data structures
 - [ ] other customizations
