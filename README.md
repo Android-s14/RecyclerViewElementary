@@ -18,6 +18,14 @@ You may need to use this method to reference an .aar file http://geekgarage.dad3
 
 You can find an example of usage in the `sample` module.
 
+### Supported customizations
+- `setLayoutManager(LayoutManager)` - provide your layout manager, `LinearLayoutManager` with vertical orientation is used by default
+- `setRowLayout(@LayoutRes int)` - provide your custom row layout, default behaviour is stacking all your String fields from the data structure in a horizontal linear view inside a card view
+- `setListener(View.OnClickListener)` - provide your onClickListener for RecyclerView members
+- `setCardMargins(int, int, int, int)` - set margins for both default and custom row layouts (default = 5dp)
+- `setCardPadding(int, int, int, int)` - set padding for the default row layout only (for custom set up in XML) (default = 10dp)
+- `setCardCornerRadii(float)` - set corner radii for the default row layout (for custom CardViews set up in XML) (default = 10dp)
+
 ## Coming soon
 - [x] basic construction of purely textual RecyclerViews
 - [x] setting a custom LayoutManager
