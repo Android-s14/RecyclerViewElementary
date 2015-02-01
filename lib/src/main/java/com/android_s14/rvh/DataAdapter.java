@@ -16,10 +16,12 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 	private final List<DataModel> data;
 	private final int dataFieldsNumber;
 	private Context context;
+	private View.OnClickListener listener;
 
-	public DataAdapter(List<DataModel> data, Context context) {
+	public DataAdapter(List<DataModel> data, Context context, View.OnClickListener listener) {
 		this.data = data;
 		this.context = context;
+		this.listener = listener;
 		dataFieldsNumber = data.get(0).getDataFieldsNumber();
 	}
 
@@ -28,6 +30,7 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
 		public ViewHolder(View itemView) {
 			super(itemView);
+			itemView.setOnClickListener(listener);
 			LinearLayout internalLayout = (LinearLayout) ((CardView) itemView).getChildAt(0);
 			for (int i = 0; i < dataFieldsNumber; i++) {
 				TextView textView = new TextView(context);

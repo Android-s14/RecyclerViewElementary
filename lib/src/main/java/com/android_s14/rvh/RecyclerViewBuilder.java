@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class RecyclerViewBuilder {
 	private Context context;
 	private List<DataModel> data;
 	private RecyclerView.LayoutManager layoutManager;
+	private View.OnClickListener listener;
 
 	public RecyclerViewBuilder(Context context) {
 		this.context = context;
@@ -27,7 +29,7 @@ public class RecyclerViewBuilder {
 	}
 
 	private void setUpAdapter(RecyclerView recyclerView) {
-		DataAdapter adapter = new DataAdapter(data, context);
+		DataAdapter adapter = new DataAdapter(data, context, listener);
 		recyclerView.setAdapter(adapter);
 	}
 
@@ -51,6 +53,11 @@ public class RecyclerViewBuilder {
 
 	public RecyclerViewBuilder setRowLayout(@LayoutRes int rowLayout) {
 		//todo implement
+		return this;
+	}
+
+	public RecyclerViewBuilder setListener(View.OnClickListener listener) {
+		this.listener = listener;
 		return this;
 	}
 }

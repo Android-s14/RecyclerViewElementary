@@ -2,11 +2,13 @@ package com.android_s14.rvh_sample;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android_s14.rvh.DataModel;
 import com.android_s14.rvh.RecyclerViewBuilder;
@@ -50,15 +52,28 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		View layout = getLayoutInflater().inflate(R.layout.activity_main, null);
 		List<DataModel> data = getData();
-		((RelativeLayout) layout).addView(new RecyclerViewBuilder(this).setData(data).build(),
-		                                  ViewGroup.LayoutParams.MATCH_PARENT,
-		                                  ViewGroup.LayoutParams.MATCH_PARENT);
+		View.OnClickListener listener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(MainActivity.this,
+				               "Item clicked",
+				               Toast.LENGTH_SHORT).show();
+			}
+		};
+		((RelativeLayout) layout).addView(
+				new RecyclerViewBuilder(this).setData(data)
+				                             .setLayoutManager(new GridLayoutManager(this, 2))
+				                             .setListener(listener)
+				                             .build(),
+				ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.MATCH_PARENT);
 		setContentView(layout);
 	}
 
 	private List<DataModel> getData() {
 		List<DataModel> data = new ArrayList<>();
 		data.add(new ActualData("Joe", "Black"));
+		data.add(new ActualData("Peter", "Brown"));
 		data.add(new ActualData("Peter", "Brown"));
 		return data;
 	}
