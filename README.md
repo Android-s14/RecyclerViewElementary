@@ -43,10 +43,9 @@ You can find an example of usage in the `sample` module.
 - [ ] your requested features
 
 ## Screenshots
-This is what you get just by providing a simple data structure class containing two text fields and one drawable field and using the most basic construction process `new RecyclerViewBuilder(this).setData(imageData).build`:
+This is what you get just by providing a simple data structure class containing two text fields and one drawable field and using the most basic construction process `new RecyclerViewBuilder(this).setData(imageData).build` | This is a simplistic textual RecyclerView constructed with merely `new RecyclerViewBuilder(this).setData(data).setLayoutManager(new GridLayoutManager(this,2)).setRowLayout(R.layout.text_row_layout).build()`:
+------------ | -------------
+![Image RecyclerView](/screenshots/image_recycler.png)|![Text RecyclerView](/screenshots/text_recycler.png)
 
-![Image RecyclerView](/screenshots/image_recycler.png)
 
-This is a simplistic textual RecyclerView constructed with merely `new RecyclerViewBuilder(this).setData(data).setLayoutManager(new GridLayoutManager(this,2)).setRowLayout(R.layout.text_row_layout).build()`:
 
-![Text RecyclerView](/screenshots/text_recycler.png)
