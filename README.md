@@ -1,8 +1,9 @@
 # RecyclerViewElementary
-The final idea is to obtain a fully ready RecyclerView (returned programmatically) in one line of code.
+The idea of the project is to make construction of simple RecyclerViews as easy as writing one line of code and supplying a data structure.
+Why spend time implementing multiple classes if you only need a simple RecyclerView?
+Currently RecyclerViews containing TextViews and ImageViews are supported with default or custom row layouts.
 
-A very initial stage of development. There are plans to leave the most basic function for constructing a fully ready RecyclerView while adding different functions returning more customized RecyclerViews (with custom layout managers, different data structures, custom row layouts, etc.)
-
+You are very welcome to offer improvements and feature requests.
 ## How to use
 1. Add rve.aar file to your project dependencies.
 You may need to use this method to reference an .aar file http://geekgarage.dad3zero.net/local-aar-android-library/
@@ -37,5 +38,15 @@ You can find an example of usage in the `sample` module.
 - [x] setting a custom LayoutManager
 - [x] setting an onClickListener
 - [x] setting a custom layout from layout resources (implemented for textual RecyclerViews)
-- [ ] support for images in data structures
+- [x] support for images in data structures
 - [ ] other customizations (some are already implemented: margins, padding, corner radii, etc.)
+- [ ] your requested features
+
+## Screenshots
+This is what you get just by providing a simple data structure class containing two text fields and one drawable field and using the most basic construction process `new RecyclerViewBuilder(this).setData(imageData).build`:
+
+![Image RecyclerView](/screenshots/image_recycler.png)
+
+This is a simplistic textual RecyclerView constructed with merely `new RecyclerViewBuilder(this).setData(data).setLayoutManager(new GridLayoutManager(this,2)).setRowLayout(R.layout.text_row_layout).build()`:
+
+![Text RecyclerView](/screenshots/text_recycler.png)

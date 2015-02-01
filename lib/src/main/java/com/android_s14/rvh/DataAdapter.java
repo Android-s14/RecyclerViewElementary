@@ -5,6 +5,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,7 +15,8 @@ import java.util.List;
 class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
 	private final List<DataModel> data;
-	private final int dataFieldsNumber;
+	private final int textFieldsNumber;
+	private final int imageFieldsNumber;
 	private final Context context;
 	private final View.OnClickListener listener;
 	private final int rowLayout;
@@ -35,45 +37,68 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 		this.margins = margins;
 		this.padding = padding;
 		this.cardCornerRadii = cardCornerRadii;
-		dataFieldsNumber = data.get(0).getDataFieldsNumber();
+		textFieldsNumber = data.get(0).getTextFieldsNumber();
+		imageFieldsNumber = data.get(0).getImageFieldsNumber();
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
-		final List<TextView> textViews = new ArrayList<>(dataFieldsNumber);
+		final List<TextView> textViews = new ArrayList<>(textFieldsNumber);
+		final List<ImageView> imageViews =
+				imageFieldsNumber == 0 ? null : new ArrayList<ImageView>(imageFieldsNumber);
 
 		public ViewHolder(CardView defaultRowLayout) {
 			super(defaultRowLayout);
 			defaultRowLayout.setOnClickListener(listener);
 			LinearLayout internalLayout = (LinearLayout) defaultRowLayout.getChildAt(0);
-			for (int i = 0; i < dataFieldsNumber; i++) {
+			addImageViews(internalLayout);
+			addTextViews(internalLayout);
+		}
+
+		private void addTextViews(LinearLayout internalLayout) {
+			for (int i = 0; i < textFieldsNumber; i++) {
 				TextView textView = new TextView(context);
-				setUpDefaultTextView(textView);
+				setUpDefaultView(textView);
 				internalLayout.addView(textView);
 				textViews.add(textView);
 			}
 		}
 
-		private void setUpDefaultTextView(TextView textView) {
+		private void addImageViews(LinearLayout internalLayout) {
+			if (imageViews != null) {
+				for (int i = 0; i < imageFieldsNumber; i++) {
+					ImageView imageView = new ImageView(context);
+					setUpDefaultView(imageView);
+					internalLayout.addView(imageView);
+					imageViews.add(imageView);
+				}
+			}
+		}
+
+		private void setUpDefaultView(View view) {
 			LinearLayout.LayoutParams params =
 					new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
 					                              ViewGroup.LayoutParams.WRAP_CONTENT);
 			int margins = Utils.convertDpToPixel(5f, context);
 			params.setMargins(margins, margins, margins, margins);
-			textView.setLayoutParams(params);
+			view.setLayoutParams(params);
 		}
 
 		public ViewHolder(View customRowLayout) {
 			super(customRowLayout);
 			customRowLayout.setOnClickListener(listener);
-			textViews.addAll(getAllTextViews(customRowLayout));
+			textViews.addAll(getAllViews(customRowLayout, TextView.class));
+			if (imageViews != null) {
+				imageViews.addAll(getAllViews(customRowLayout, ImageView.class));
+			}
 		}
 
-		private List<TextView> getAllTextViews(View customRowLayout) {
-			ArrayList<TextView> result = new ArrayList<>();
+		private <T extends View> List<T> getAllViews(View customRowLayout, Class<T> clz) {
+			ArrayList<T> result = new ArrayList<>();
 			ArrayList<View> children = Utils.getAllChildren(customRowLayout);
 			for (View child : children) {
-				if (child instanceof TextView) {
-					TextView textView = (TextView) child;
+				if (clz.isInstance(child)) {
+					@SuppressWarnings("unchecked")
+					T textView = (T) child;
 					result.add(textView);
 				}
 			}
@@ -135,6 +160,14 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 		for (int i = 0; i < textViews.size(); i++) {
 			TextView textView = textViews.get(i);
 			textView.setText(dataModel.getTextField(i));
+		}
+
+		if (viewHolder.imageViews != null) {
+			List<ImageView> imageViews = viewHolder.imageViews;
+			for (int i = 0; i < imageViews.size(); i++) {
+				ImageView imageView = imageViews.get(i);
+				imageView.setImageDrawable(dataModel.getImageField(i));
+			}
 		}
 	}
 

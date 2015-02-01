@@ -20,39 +20,12 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity {
 
-	private class ActualData implements DataModel {
-
-		private final String firstName;
-		private final String lastName;
-
-		public ActualData(String firstName, String lastName) {
-			this.firstName = firstName;
-			this.lastName = lastName;
-		}
-
-		@Override
-		public String getTextField(int i) {
-			switch (i) {
-				case 0:
-					return firstName;
-				case 1:
-					return lastName;
-				default:
-					return firstName;
-			}
-		}
-
-		@Override
-		public int getDataFieldsNumber() {
-			return 2;
-		}
-	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View layout = getLayoutInflater().inflate(R.layout.activity_main, null);
 		List<DataModel> data = getData();
+		List<DataModel> imageData = getImageData();
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -61,31 +34,52 @@ public class MainActivity extends ActionBarActivity {
 				               Toast.LENGTH_SHORT).show();
 			}
 		};
-		RecyclerView recyclerView = new RecyclerViewBuilder(this).setData(data)
-		                                                         .setLayoutManager(
-				                                                         new GridLayoutManager
-						                                                         (this,
-						                                                          2))
-		                                                         .setRowLayout(R.layout.row_layout)
-		                                                         .setListener(listener)
-		                                                         .build();
-		((RelativeLayout) layout).addView(recyclerView,
+		//textual recyclerview example
+		RecyclerView textRecyclerView = new RecyclerViewBuilder(this).setData(data)
+		                                                             .setLayoutManager(
+				                                                             new GridLayoutManager
+						                                                             (this,
+						                                                              2))
+		                                                             .setRowLayout(R.layout
+				                                                                           .text_row_layout)
+		                                                             .setListener(listener)
+		                                                             .build();
+		//example of recyclerview containing pictures
+		RecyclerView imageRecyclerView = new RecyclerViewBuilder(this).setData(imageData)
+		                                                              .setRowLayout(R.layout
+				                                                                            .image_row_layout)
+		                                                              .build();
+		((RelativeLayout) layout).addView(textRecyclerView,
 		                                  ViewGroup.LayoutParams.MATCH_PARENT,
 		                                  ViewGroup.LayoutParams.MATCH_PARENT);
 		setContentView(layout);
 	}
 
+	private List<DataModel> getImageData() {
+		List<DataModel> data = new ArrayList<>();
+		data.add(new ImageData("Joe",
+		                       "Black",
+		                       getResources().getDrawable(R.drawable.ic_launcher)));
+		data.add(new ImageData("Peter",
+		                       "Brown",
+		                       getResources().getDrawable(R.drawable.ic_launcher)));
+		data.add(new ImageData("Andrew",
+		                       "Red",
+		                       getResources().getDrawable(R.drawable.ic_launcher)));
+		return data;
+	}
+
 	private List<DataModel> getData() {
 		List<DataModel> data = new ArrayList<>();
-		data.add(new ActualData("Joe", "Black"));
-		data.add(new ActualData("Peter", "Brown"));
-		data.add(new ActualData("Joe", "Black"));
-		data.add(new ActualData("Peter", "Brown"));
-		data.add(new ActualData("Andrew", "Red"));
-		data.add(new ActualData("Peter", "Brown"));
-		data.add(new ActualData("Andrew", "Red"));
-		data.add(new ActualData("Peter", "Brown"));
-		data.add(new ActualData("Andrew", "Red"));
+		data.add(new TextData("Joe", "Black"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Joe", "Black"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Andrew", "Red"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Andrew", "Red"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Andrew", "Red"));
 		return data;
 	}
 
