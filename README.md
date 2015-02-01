@@ -10,7 +10,7 @@ You may need to use this method to reference an .aar file http://geekgarage.dad3
 -    ```
     List<DataModel> data = getData(); //your data
     RecyclerView view = new RecyclerViewBuilder(this).setData(data).build();
-    ```
+```
 - Add RecyclerView to your layout.
 
 You can find an example of usage in the `sample` module.
