@@ -3,6 +3,7 @@ package com.android_s14.rvh_sample;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,13 +61,17 @@ public class MainActivity extends ActionBarActivity {
 				               Toast.LENGTH_SHORT).show();
 			}
 		};
-		((RelativeLayout) layout).addView(
-				new RecyclerViewBuilder(this).setData(data)
-				                             .setLayoutManager(new GridLayoutManager(this, 2))
-				                             .setListener(listener)
-				                             .build(),
-				ViewGroup.LayoutParams.MATCH_PARENT,
-				ViewGroup.LayoutParams.MATCH_PARENT);
+		RecyclerView recyclerView = new RecyclerViewBuilder(this).setData(data)
+		                                                         .setLayoutManager(
+				                                                         new GridLayoutManager
+						                                                         (this,
+						                                                          2))
+		                                                         .setRowLayout(R.layout.row_layout)
+		                                                         .setListener(listener)
+		                                                         .build();
+		((RelativeLayout) layout).addView(recyclerView,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT);
 		setContentView(layout);
 	}
 
@@ -74,7 +79,13 @@ public class MainActivity extends ActionBarActivity {
 		List<DataModel> data = new ArrayList<>();
 		data.add(new ActualData("Joe", "Black"));
 		data.add(new ActualData("Peter", "Brown"));
+		data.add(new ActualData("Joe", "Black"));
 		data.add(new ActualData("Peter", "Brown"));
+		data.add(new ActualData("Andrew", "Red"));
+		data.add(new ActualData("Peter", "Brown"));
+		data.add(new ActualData("Andrew", "Red"));
+		data.add(new ActualData("Peter", "Brown"));
+		data.add(new ActualData("Andrew", "Red"));
 		return data;
 	}
 

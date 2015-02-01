@@ -22,6 +22,6 @@ You can find an example of usage in the `sample` module.
 - [x] basic construction of purely textual RecyclerViews
 - [x] setting a custom LayoutManager
 - [x] setting an onClickListener
-- [ ] setting a custom layout from layout resources
+- [x] setting a custom layout from layout resources (implemented for textual RecyclerViews)
 - [ ] support for images in data structures
-- [ ] other customizations
+- [ ] other customizations (some are already implemented: margins, padding, corner radii, etc.)
