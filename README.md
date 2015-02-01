@@ -9,11 +9,18 @@ You may need to use this method to reference an .aar file http://geekgarage.dad3
 2. Implement `DataModel` interface to describe your data structure.
 3. Build your RecyclerView:
 
-    ```
+    ```java
     List<DataModel> data = getData(); //your data
     RecyclerView view = new RecyclerViewBuilder(this).setData(data).build();
     ```
-    
+
 4. Add RecyclerView to your layout.
 
 You can find an example of usage in the `sample` module.
+
+## Coming soon
+- [x] basic construction of purely textual RecyclerViews
+- [ ] setting custom LayoutManager
+- [ ] setting custom layout from layout resources
+- [ ] support for images in data structures
+- [ ] other customizations
