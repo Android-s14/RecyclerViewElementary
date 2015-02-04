@@ -5,14 +5,15 @@ Currently RecyclerViews containing TextViews and ImageViews are supported with d
 
 You are very welcome to offer improvements and feature requests.
 ## How to use
-1. Add rve.aar file to your project dependencies.
-You may need to use this method to reference an .aar file http://geekgarage.dad3zero.net/local-aar-android-library/
-2. Add RecyclerView and CardView dependencies to your project:
+1. Add the library to your project dependencies.
 
     ```
-     compile 'com.android.support:cardview-v7:21.0.0'
-     compile 'com.android.support:recyclerview-v7:21.0.0'
+    dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile 'com.github.android-s14:rve:1.0.0'
+    }
     ```
+
 3. Implement `DataModel` interface to describe your data structure.
 4. Build your RecyclerView:
 
