@@ -10,7 +10,7 @@ You are very welcome to offer improvements and feature requests.
     ```
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile 'com.github.android-s14:rve:1.0.0'
+        compile 'com.github.android-s14:rve:1.1.0'
     }
     ```
 
@@ -34,6 +34,21 @@ You can find an example of usage in the `sample` module.
 - `setCardPadding(int, int, int, int)` - set padding for the default row layout only (for custom set up in XML) (default = 10dp)
 - `setCardCornerRadii(float)` - set corner radii for the default row layout (for custom CardViews set up in XML) (default = 10dp)
 
+#### Supplying your RecyclerView
+Now you can also provide your own RecyclerView: either made programmatically or defined in XML:
+
+```java
+RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recycler_view);
+new RecyclerViewBuilder(this).using(recyclerView).setData(imageData).build();
+```
+
+```java
+View layout = getLayoutInflater().inflate(R.layout.activity_main_recycler, null);
+new RecyclerViewBuilder(this).using(R.id.recycler_view, layout).setData(imageData).build();
+```
+
+You are not required to catch the returned RecyclerView - it is the same instance as supplied.
+
 ## Coming soon
 - [x] basic construction of purely textual RecyclerViews
 - [x] setting a custom LayoutManager
@@ -48,7 +63,7 @@ This is what you get just by providing a simple data structure class containing 
 
 <img src="/screenshots/image_recycler.png" width="250")/>
 
-This is a simplistic textual RecyclerView constructed with merely `new RecyclerViewBuilder(this).setData(data).setLayoutManager(new GridLayoutManager(this,2)).setRowLayout(R.layout.text_row_layout.build()`.
+This is a simplistic textual RecyclerView constructed with mere `new RecyclerViewBuilder(this).setData(data).setLayoutManager(new GridLayoutManager(this,2)).setRowLayout(R.layout.text_row_layout.build()`.
 
 <img src="/screenshots/text_recycler.png" width="250")/>
 

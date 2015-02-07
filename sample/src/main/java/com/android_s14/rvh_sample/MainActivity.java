@@ -23,35 +23,18 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		View layout = getLayoutInflater().inflate(R.layout.activity_main, null);
-		List<DataModel> data = getData();
+
+		//textRecyclerViewExample();
+		//imageRecyclerViewExample();
+		//xmlRecyclerViewExample();
+		ownRecyclerViewExample();
+	}
+
+	private void ownRecyclerViewExample() {
+		View layout = getLayoutInflater().inflate(R.layout.activity_main_recycler, null);
+		RecyclerView recyclerView = (RecyclerView) layout.findViewById(R.id.recycler_view);
 		List<DataModel> imageData = getImageData();
-		View.OnClickListener listener = new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(MainActivity.this,
-				               "Item clicked",
-				               Toast.LENGTH_SHORT).show();
-			}
-		};
-		//textual recyclerview example
-		RecyclerView textRecyclerView = new RecyclerViewBuilder(this).setData(data)
-		                                                             .setLayoutManager(
-				                                                             new GridLayoutManager
-						                                                             (this,
-						                                                              2))
-		                                                             .setRowLayout(R.layout
-				                                                                           .text_row_layout)
-		                                                             .setListener(listener)
-		                                                             .build();
-		//example of recyclerview containing pictures
-		RecyclerView imageRecyclerView = new RecyclerViewBuilder(this).setData(imageData)
-		                                                              .setRowLayout(R.layout
-				                                                                            .image_row_layout)
-		                                                              .build();
-		((RelativeLayout) layout).addView(textRecyclerView,
-		                                  ViewGroup.LayoutParams.MATCH_PARENT,
-		                                  ViewGroup.LayoutParams.MATCH_PARENT);
+		new RecyclerViewBuilder(this).using(recyclerView).setData(imageData).build();
 		setContentView(layout);
 	}
 
@@ -67,6 +50,49 @@ public class MainActivity extends ActionBarActivity {
 		                       "Red",
 		                       getResources().getDrawable(R.drawable.ic_launcher)));
 		return data;
+	}
+
+	private void xmlRecyclerViewExample() {
+		List<DataModel> imageData = getImageData();
+		View layout = getLayoutInflater().inflate(R.layout.activity_main_recycler, null);
+		new RecyclerViewBuilder(this).using(R.id.recycler_view, layout).setData(imageData).build();
+		setContentView(layout);
+	}
+
+	private void imageRecyclerViewExample() {
+		List<DataModel> imageData = getImageData();
+		RecyclerView imageRecyclerView = new
+				RecyclerViewBuilder(this).setData(imageData)
+		                                 .setRowLayout(R.layout.image_row_layout)
+		                                 .build();
+
+		View layout = getLayoutInflater().inflate(R.layout.activity_main, null);
+		((RelativeLayout) layout).addView(imageRecyclerView,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT);
+		setContentView(layout);
+	}
+
+	private void textRecyclerViewExample() {
+		List<DataModel> data = getData();
+		View.OnClickListener listener = new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(MainActivity.this, "Item clicked", Toast.LENGTH_SHORT).show();
+			}
+		};
+		RecyclerView textRecyclerView = new
+				RecyclerViewBuilder(this).setData(data)
+		                                 .setLayoutManager(new GridLayoutManager(this, 2))
+		                                 .setRowLayout(R.layout.text_row_layout)
+		                                 .setListener(listener)
+		                                 .build();
+
+		View layout = getLayoutInflater().inflate(R.layout.activity_main, null);
+		((RelativeLayout) layout).addView(textRecyclerView,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT);
+		setContentView(layout);
 	}
 
 	private List<DataModel> getData() {

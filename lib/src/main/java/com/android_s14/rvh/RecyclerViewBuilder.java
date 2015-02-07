@@ -1,6 +1,7 @@
 package com.android_s14.rvh;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import java.util.List;
 public class RecyclerViewBuilder {
 
 	private final Context context;
+	private RecyclerView recyclerView;
 	private List<DataModel> data;
 	private RecyclerView.LayoutManager layoutManager;
 	private View.OnClickListener listener;
@@ -39,11 +41,11 @@ public class RecyclerViewBuilder {
 	}
 
 	public RecyclerView build() {
-
-		RecyclerView recyclerView = new RecyclerView(context);
+		if (recyclerView == null) {
+			recyclerView = new RecyclerView(context);
+		}
 		setUpLayoutManager(recyclerView);
 		setUpAdapter(recyclerView);
-
 		return recyclerView;
 	}
 
@@ -93,6 +95,16 @@ public class RecyclerViewBuilder {
 
 	public RecyclerViewBuilder setCardCornerRadii(float radius) {
 		this.cardCornerRadii = radius;
+		return this;
+	}
+
+	public RecyclerViewBuilder using(@IdRes int recyclerViewId, View rootView) {
+		recyclerView = (RecyclerView) rootView.findViewById(recyclerViewId);
+		return this;
+	}
+
+	public RecyclerViewBuilder using(RecyclerView recyclerView) {
+		this.recyclerView = recyclerView;
 		return this;
 	}
 }
