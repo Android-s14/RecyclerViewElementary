@@ -10,7 +10,7 @@ You are very welcome to offer improvements and feature requests.
     ```
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile 'com.github.android-s14:rve:1.1.1'
+        compile 'com.github.android-s14:rve:1.1.2'
     }
     ```
 
@@ -33,6 +33,7 @@ You can find an example of usage in the `sample` module.
 - `setCardMargins(int, int, int, int)` - set margins for both default and custom row layouts (default = 5dp)
 - `setCardPadding(int, int, int, int)` - set padding for the default row layout only (for custom set up in XML) (default = 10dp)
 - `setCardCornerRadii(float)` - set corner radii for the default row layout (for custom CardViews set up in XML) (default = 10dp)
+- `setItemAnimator(RecyclerView.ItemAnimator animator)` - add custom animation for the list items
 
 #### Supplying your RecyclerView
 Now you can also provide your own RecyclerView: either made programmatically or defined in XML:

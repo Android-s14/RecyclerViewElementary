@@ -20,6 +20,7 @@ public class RecyclerViewBuilder {
 	private LayoutAttrs margins;
 	private LayoutAttrs padding;
 	private float cardCornerRadii = -1f;
+	private RecyclerView.ItemAnimator animator;
 
 	public RecyclerViewBuilder(Context context) {
 		this.context = context;
@@ -46,7 +47,14 @@ public class RecyclerViewBuilder {
 		}
 		setUpLayoutManager(recyclerView);
 		setUpAdapter(recyclerView);
+		setUpAnimator();
 		return recyclerView;
+	}
+
+	private void setUpAnimator() {
+		if (animator != null) {
+			recyclerView.setItemAnimator(animator);
+		}
 	}
 
 	private void setUpAdapter(RecyclerView recyclerView) {
@@ -95,6 +103,11 @@ public class RecyclerViewBuilder {
 
 	public RecyclerViewBuilder setCardCornerRadii(float radius) {
 		this.cardCornerRadii = radius;
+		return this;
+	}
+
+	public RecyclerViewBuilder setItemAnimator(RecyclerView.ItemAnimator animator) {
+		this.animator = animator;
 		return this;
 	}
 
