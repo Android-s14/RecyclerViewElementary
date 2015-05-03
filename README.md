@@ -1,4 +1,6 @@
 # RecyclerViewElementary
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-RecyclerViewElementary-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1735)
+
 The idea of the project is to make construction of simple RecyclerViews as easy as writing one line of code and supplying a data structure.
 Why spend time implementing multiple classes if you only need a simple RecyclerView?
 Currently RecyclerViews containing TextViews and ImageViews are supported with default or custom row layouts.
