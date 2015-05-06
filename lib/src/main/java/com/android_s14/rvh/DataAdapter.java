@@ -18,7 +18,7 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 	private final int textFieldsNumber;
 	private final int imageFieldsNumber;
 	private final Context context;
-	private final View.OnClickListener listener;
+	private final OnClickListener listener;
 	private final int rowLayout;
 	private RecyclerViewBuilder.LayoutAttrs margins;
 	private RecyclerViewBuilder.LayoutAttrs padding;
@@ -26,7 +26,7 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
 	public DataAdapter(List<DataModel> data,
 	                   Context context,
-	                   View.OnClickListener listener,
+	                   OnClickListener listener,
 	                   int rowLayout,
 	                   RecyclerViewBuilder.LayoutAttrs margins,
 	                   RecyclerViewBuilder.LayoutAttrs padding, float cardCornerRadii) {
@@ -48,7 +48,6 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
 		public ViewHolder(CardView defaultRowLayout) {
 			super(defaultRowLayout);
-			defaultRowLayout.setOnClickListener(listener);
 			LinearLayout internalLayout = (LinearLayout) defaultRowLayout.getChildAt(0);
 			addImageViews(internalLayout);
 			addTextViews(internalLayout);
@@ -85,7 +84,6 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
 		public ViewHolder(View customRowLayout) {
 			super(customRowLayout);
-			customRowLayout.setOnClickListener(listener);
 			textViews.addAll(getAllViews(customRowLayout, TextView.class));
 			if (imageViews != null) {
 				imageViews.addAll(getAllViews(customRowLayout, ImageView.class));
@@ -154,9 +152,17 @@ class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 	}
 
 	@Override
-	public void onBindViewHolder(ViewHolder viewHolder, int position) {
+	public void onBindViewHolder(ViewHolder viewHolder, final int position) {
 		DataModel dataModel = data.get(position);
 		List<TextView> textViews = viewHolder.textViews;
+		if (listener != null) {
+			viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					listener.onClick(v, position);
+				}
+			});
+		}
 		for (int i = 0; i < textViews.size(); i++) {
 			TextView textView = textViews.get(i);
 			textView.setText(dataModel.getTextField(i));

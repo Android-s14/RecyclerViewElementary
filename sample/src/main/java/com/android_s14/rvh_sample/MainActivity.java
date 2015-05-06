@@ -1,7 +1,7 @@
 package com.android_s14.rvh_sample;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -12,22 +12,61 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android_s14.rvh.DataModel;
+import com.android_s14.rvh.OnClickListener;
 import com.android_s14.rvh.RecyclerViewBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		//textRecyclerViewExample();
+		textRecyclerViewExample();
 		//imageRecyclerViewExample();
 		//xmlRecyclerViewExample();
-		ownRecyclerViewExample();
+		//ownRecyclerViewExample();
+	}
+
+	private void textRecyclerViewExample() {
+		List<DataModel> data = getData();
+		OnClickListener listener = new OnClickListener() {
+			@Override
+			public void onClick(View v, int position) {
+				Toast.makeText(MainActivity.this,
+				               "Item " + position + " clicked",
+				               Toast.LENGTH_SHORT).show();
+			}
+		};
+		RecyclerView textRecyclerView = new
+				RecyclerViewBuilder(this).setData(data)
+		                                 .setLayoutManager(new GridLayoutManager(this, 2))
+		                                 .setRowLayout(R.layout.text_row_layout)
+		                                 .setListener(listener)
+		                                 .build();
+
+		View layout = getLayoutInflater().inflate(R.layout.activity_main, null);
+		((RelativeLayout) layout).addView(textRecyclerView,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT,
+		                                  ViewGroup.LayoutParams.MATCH_PARENT);
+		setContentView(layout);
+	}
+
+	private List<DataModel> getData() {
+		List<DataModel> data = new ArrayList<>();
+		data.add(new TextData("Joe", "Black"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Joe", "Black"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Andrew", "Red"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Andrew", "Red"));
+		data.add(new TextData("Peter", "Brown"));
+		data.add(new TextData("Andrew", "Red"));
+		return data;
 	}
 
 	private void ownRecyclerViewExample() {
@@ -71,42 +110,6 @@ public class MainActivity extends ActionBarActivity {
 		                                  ViewGroup.LayoutParams.MATCH_PARENT,
 		                                  ViewGroup.LayoutParams.MATCH_PARENT);
 		setContentView(layout);
-	}
-
-	private void textRecyclerViewExample() {
-		List<DataModel> data = getData();
-		View.OnClickListener listener = new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(MainActivity.this, "Item clicked", Toast.LENGTH_SHORT).show();
-			}
-		};
-		RecyclerView textRecyclerView = new
-				RecyclerViewBuilder(this).setData(data)
-		                                 .setLayoutManager(new GridLayoutManager(this, 2))
-		                                 .setRowLayout(R.layout.text_row_layout)
-		                                 .setListener(listener)
-		                                 .build();
-
-		View layout = getLayoutInflater().inflate(R.layout.activity_main, null);
-		((RelativeLayout) layout).addView(textRecyclerView,
-		                                  ViewGroup.LayoutParams.MATCH_PARENT,
-		                                  ViewGroup.LayoutParams.MATCH_PARENT);
-		setContentView(layout);
-	}
-
-	private List<DataModel> getData() {
-		List<DataModel> data = new ArrayList<>();
-		data.add(new TextData("Joe", "Black"));
-		data.add(new TextData("Peter", "Brown"));
-		data.add(new TextData("Joe", "Black"));
-		data.add(new TextData("Peter", "Brown"));
-		data.add(new TextData("Andrew", "Red"));
-		data.add(new TextData("Peter", "Brown"));
-		data.add(new TextData("Andrew", "Red"));
-		data.add(new TextData("Peter", "Brown"));
-		data.add(new TextData("Andrew", "Red"));
-		return data;
 	}
 
 	@Override

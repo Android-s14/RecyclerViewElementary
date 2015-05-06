@@ -15,7 +15,7 @@ public class RecyclerViewBuilder {
 	private RecyclerView recyclerView;
 	private List<DataModel> data;
 	private RecyclerView.LayoutManager layoutManager;
-	private View.OnClickListener listener;
+	private OnClickListener listener;
 	private int rowLayout;
 	private LayoutAttrs margins;
 	private LayoutAttrs padding;
@@ -86,7 +86,7 @@ public class RecyclerViewBuilder {
 		return this;
 	}
 
-	public RecyclerViewBuilder setListener(View.OnClickListener listener) {
+	public RecyclerViewBuilder setListener(OnClickListener listener) {
 		this.listener = listener;
 		return this;
 	}

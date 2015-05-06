@@ -12,7 +12,7 @@ You are very welcome to offer improvements and feature requests.
     ```
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
-        compile 'com.github.android-s14:rve:1.1.3'
+        compile 'com.github.android-s14:rve:1.1.4'
     }
     ```
 
